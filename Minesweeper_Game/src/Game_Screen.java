@@ -11,6 +11,8 @@ public class Game_Screen extends JFrame {
 	private int randomNums[];
 	private JButton bt[];
 	private int i = 0;
+	private int temp[];
+	private int tempNum = 0;
 
 	private void createMenu() {
 		JMenuBar mb = new JMenuBar();
@@ -36,20 +38,121 @@ public class Game_Screen extends JFrame {
 		setJMenuBar(mb);
 	}
 
-	public void randomNums(int rn) {
-		randomNums = new int[rn];
+	private void randomNums(int rn) {
+		if (rn == 30)
+			randomNums = new int[rn * 7];
+		else
+			randomNums = new int[rn];
 		Random r = new Random();
-
-		for (int i = 0; i < rn; i++) {
-			randomNums[i] = r.nextInt(rn * rn);
-			for (int j = 0; j < i; j++) {
-				if (randomNums[i] == randomNums[j]) {
-					i--;
+		if (rn == 30)
+			for (int i = 0; i < rn * 7; i++) {
+				randomNums[i] = r.nextInt(rn * rn);
+				for (int j = 0; j < i; j++) {
+					if (randomNums[i] == randomNums[j]) {
+						i--;
+					}
 				}
 			}
-		}
+		else
+			for (int i = 0; i < rn; i++) {
+				randomNums[i] = r.nextInt(rn * rn);
+				for (int j = 0; j < i; j++) {
+					if (randomNums[i] == randomNums[j]) {
+						i--;
+					}
+				}
+			}
 		for (int i = 0; i < rn; i++)
 			System.out.println(randomNums[i]); // 중복 없는 난수 생성 확인
+	}
+
+	private void exploreMap(int j) {
+		String buttonColor = "java.awt.Color[r=192,g=192,b=192]";
+		int buttonNum = mineNum * mineNum;
+		temp[tempNum] = j;
+		//System.out.println("함수시작시 호출  " + j+ " temp " + temp[tempNum]+" tempNum "+tempNum);
+		if (j == 0) {
+			if (bt[j + mineNum].getText() == "" && buttonColor.equals(bt[j + mineNum].getBackground().toString())) {
+				j += mineNum;
+				bt[j].setBackground(Color.GRAY);
+				tempNum++;
+				exploreMap(j);
+				//System.out.println("0아래 " + j + " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+			} else if (bt[j + 1].getText() == "" && buttonColor.equals(bt[j + 1].getBackground().toString())) {
+				j += 1;
+				bt[j].setBackground(Color.GRAY);
+				tempNum++;
+				exploreMap(j);
+				//System.out.println("0오른" + j+ " temp " +  temp[tempNum-1]+" tempNum "+tempNum);
+			}else {
+				if (tempNum != 0) {
+					tempNum -= 1;
+					exploreMap(temp[tempNum]);
+					//System.out.println("전" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+				}
+			}
+		} else {
+			// ---------------------------------------------------------------------------------
+			if (j != 0 && j != (buttonNum - 1)) {
+				if (j >= mineNum && bt[j - mineNum].getText() == ""
+						&& buttonColor.equals(bt[j - mineNum].getBackground().toString())) {
+					j -= mineNum;
+					bt[j].setBackground(Color.GRAY);
+					tempNum++;
+					exploreMap(j);
+					//System.out.println("위" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+				} else if (j > 0 && (int) (j % mineNum) != 0 && bt[j - 1].getText() == ""
+						&& buttonColor.equals(bt[j - 1].getBackground().toString())) {
+					j -= 1;
+					bt[j].setBackground(Color.GRAY);
+					tempNum++;
+					exploreMap(j);
+					//System.out.println("왼" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+				} else if (j < (buttonNum - mineNum) && bt[j + mineNum].getText() == ""
+						&& buttonColor.equals(bt[j + mineNum].getBackground().toString())) {
+					j += mineNum;
+					bt[j].setBackground(Color.GRAY);
+					tempNum++;
+					exploreMap(j);
+					//System.out.println("아래" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+				} else if (j < buttonNum && (int) (j % mineNum) != (mineNum - 1) && bt[j + 1].getText().equals("")
+						&& buttonColor.equals(bt[j + 1].getBackground().toString())) {
+					j += 1;
+					bt[j].setBackground(Color.GRAY);
+					tempNum++;
+					exploreMap(j);
+					//System.out.println("오른" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+				}else {
+					if (tempNum != 0) {
+						tempNum -= 1;
+						exploreMap(temp[tempNum]);
+						//System.out.println("전" + j+ " temp " + temp[tempNum]+" tempNum "+tempNum);
+					}
+				}
+			} else if (j == (buttonNum - 1)) {
+				if (j >= mineNum && bt[j - mineNum].getText() == ""
+						&& buttonColor.equals(bt[j - mineNum].getBackground().toString())) {
+					j -= mineNum;
+					bt[j].setBackground(Color.GRAY);
+					tempNum++;
+					exploreMap(j);
+					//System.out.println("99위" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+				} else if (j > 0 && (int) (j % mineNum) != 0 && bt[j - 1].getText() == ""
+						&& buttonColor.equals(bt[j - 1].getBackground().toString())) {
+					j -= 1;
+					bt[j].setBackground(Color.GRAY);
+					tempNum++;
+					exploreMap(j);
+					//System.out.println("99왼" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+				}else {
+					if (tempNum != 0) {
+						tempNum -= 1;
+						exploreMap(temp[tempNum]);
+						//System.out.println("전" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+					}
+				}
+			} 
+		}
 	}
 
 	public Game_Screen(String level) {
@@ -59,13 +162,18 @@ public class Game_Screen extends JFrame {
 		else if (level == "Normal")
 			mineNum = 20;
 		else if (level == "Hard")
-			mineNum = 50;
+			mineNum = 30;
 		randomNums(mineNum);
+		temp = new int[mineNum * mineNum];
 		bt = new JButton[mineNum * mineNum];
-
 		setTitle("Game Start!!");
 		createMenu();
-		setSize(650, 750);
+		if (mineNum == 10)
+			setSize(650, 750);
+		else if (mineNum == 20)
+			setSize(900, 1000);
+		else
+			setSize(1350, 1400);
 		setVisible(true);
 
 		Container c = getContentPane();
@@ -95,45 +203,52 @@ public class Game_Screen extends JFrame {
 				bt[i].addActionListener(new ButtonActionListener());
 				this.add(bt[i]);
 			}
-			for (int i = 0; i < mineNum; i++) {
-				System.out.println(randomNums[i]);
-				bt[randomNums[i]].setText("Mine");
-				bt[randomNums[i]].setForeground(Color.LIGHT_GRAY);
-			}
+			if (mineNum == 30) {
+				for (int i = 0; i < mineNum * 7; i++) {
+					System.out.println(randomNums[i]);
+					bt[randomNums[i]].setText("B");
+					bt[randomNums[i]].setForeground(Color.LIGHT_GRAY);
+				}
+			} else
+				for (int i = 0; i < mineNum; i++) {
+					System.out.println(randomNums[i]);
+					bt[randomNums[i]].setText("B");
+					bt[randomNums[i]].setForeground(Color.RED); // 폭탄 색깔
+				}
 			for (int i = 0; i < mineNum * mineNum; i++) {
 				int buttonNum = mineNum * mineNum;
 				int mineCount = 0;
-				if (bt[i].getText() != "Mine") {
+				if (bt[i].getText() != "B") {
 					if (i == 0) {
-						if (bt[i + 1].getText() == "Mine")
+						if (bt[i + 1].getText() == "B")
 							mineCount++;
-						if (bt[i + mineNum].getText() == "Mine")
+						if (bt[i + mineNum].getText() == "B")
 							mineCount++;
-						if (bt[i + (mineNum + 1)].getText() == "Mine")
+						if (bt[i + (mineNum + 1)].getText() == "B")
 							mineCount++;
 					} else {
 						// ---------------------------------------------------------------------------------
 						if (i != 0) {
-							if (i > mineNum && (int) (i % mineNum) != 0 && bt[i - (mineNum + 1)].getText() == "Mine")
+							if (i > mineNum && (int) (i % mineNum) != 0 && bt[i - (mineNum + 1)].getText() == "B")
 								mineCount++;
-							if (i >= mineNum && bt[i - mineNum].getText() == "Mine")
+							if (i >= mineNum && bt[i - mineNum].getText() == "B")
 								mineCount++;
 							if (i >= mineNum && (int) (i % mineNum) != (mineNum - 1)
-									&& bt[i - (mineNum - 1)].getText() == "Mine")
+									&& bt[i - (mineNum - 1)].getText() == "B")
 								mineCount++;
-							if (i > 0 && (int) (i % mineNum) != 0 && bt[i - 1].getText() == "Mine")
+							if (i > 0 && (int) (i % mineNum) != 0 && bt[i - 1].getText() == "B")
 								mineCount++;
 						}
 						if (i != (buttonNum - 1)) {
-							if (i < buttonNum && (int) (i % mineNum) != (mineNum - 1) && bt[i + 1].getText() == "Mine")
+							if (i < buttonNum && (int) (i % mineNum) != (mineNum - 1) && bt[i + 1].getText() == "B")
 								mineCount++;
 							if (i < (buttonNum - (mineNum + 1)) && i != 0 && (int) (i % mineNum) != 0
-									&& bt[i + (mineNum - 1)].getText() == "Mine")
+									&& bt[i + (mineNum - 1)].getText() == "B")
 								mineCount++;
-							if (i < (buttonNum - mineNum) && bt[i + mineNum].getText() == "Mine")
+							if (i < (buttonNum - mineNum) && bt[i + mineNum].getText() == "B")
 								mineCount++;
 							if (i < (buttonNum - (mineNum + 1)) && (int) (i % mineNum) != (mineNum - 1)
-									&& bt[i + (mineNum + 1)].getText() == "Mine")
+									&& bt[i + (mineNum + 1)].getText() == "B")
 								mineCount++;
 
 						}
@@ -150,33 +265,31 @@ public class Game_Screen extends JFrame {
 	class ButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JButton actionBt = (JButton) e.getSource();
-			if (actionBt.getText() == "Mine") {
+			if (actionBt.getText() == "B") {
 				for (int i = 0; i < mineNum * mineNum; i++) {
-					if (bt[i].getText() == "Mine")
+					if (bt[i].getText() == "B")
 						bt[i].setForeground(Color.RED);
 				}
 			} else if (actionBt.getText() == "") {
 				for (i = 0; i < mineNum * mineNum; i++) {
 					if (e.getSource() == bt[i]) {
 						bt[i].setBackground(Color.GRAY);
-						while (true) {
-							// exploreMap();
-							break;
-						}
+						tempNum = 0;
+						exploreMap(i);
+						String testA = bt[i].getBackground().toString();
+						System.out.println(testA + "///" + i); // 리턴 테스트
 					}
 				}
-			} 
-				else {
+			} else {
 				actionBt.setBackground(Color.GRAY);
 				if (actionBt.getText().equals("1")) {
 					actionBt.setForeground(Color.BLUE);
-				}
-				else if (actionBt.getText().equals("2")) {
+				} else if (actionBt.getText().equals("2")) {
 					actionBt.setForeground(Color.CYAN);
 				} else {
 					actionBt.setForeground(Color.GREEN);
 				}
-				System.out.println(actionBt.getText() == "2"); //깊은 복사, 얕은 복사 비교
+				System.out.println(actionBt.getText() == "2"); // 깊은 복사, 얕은 복사 비교
 			}
 		}
 	}
