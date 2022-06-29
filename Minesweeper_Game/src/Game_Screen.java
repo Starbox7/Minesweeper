@@ -65,30 +65,37 @@ public class Game_Screen extends JFrame {
 		for (int i = 0; i < rn; i++)
 			System.out.println(randomNums[i]); // 중복 없는 난수 생성 확인
 	}
+	
+	private void exploreNum(int n) {
+		
+	}
 
 	private void exploreMap(int j) {
 		String buttonColor = "java.awt.Color[r=192,g=192,b=192]";
 		int buttonNum = mineNum * mineNum;
 		temp[tempNum] = j;
-		//System.out.println("함수시작시 호출  " + j+ " temp " + temp[tempNum]+" tempNum "+tempNum);
+		// System.out.println("함수시작시 호출 " + j+ " temp " + temp[tempNum]+" tempNum
+		// "+tempNum);
 		if (j == 0) {
 			if (bt[j + mineNum].getText() == "" && buttonColor.equals(bt[j + mineNum].getBackground().toString())) {
 				j += mineNum;
 				bt[j].setBackground(Color.GRAY);
 				tempNum++;
 				exploreMap(j);
-				//System.out.println("0아래 " + j + " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+				// System.out.println("0아래 " + j + " temp " + temp[tempNum-1]+" tempNum
+				// "+tempNum);
 			} else if (bt[j + 1].getText() == "" && buttonColor.equals(bt[j + 1].getBackground().toString())) {
 				j += 1;
 				bt[j].setBackground(Color.GRAY);
 				tempNum++;
 				exploreMap(j);
-				//System.out.println("0오른" + j+ " temp " +  temp[tempNum-1]+" tempNum "+tempNum);
-			}else {
+				// System.out.println("0오른" + j+ " temp " + temp[tempNum-1]+" tempNum
+				// "+tempNum);
+			} else {
 				if (tempNum != 0) {
 					tempNum -= 1;
 					exploreMap(temp[tempNum]);
-					//System.out.println("전" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+					// System.out.println("전" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
 				}
 			}
 		} else {
@@ -100,33 +107,33 @@ public class Game_Screen extends JFrame {
 					bt[j].setBackground(Color.GRAY);
 					tempNum++;
 					exploreMap(j);
-					//System.out.println("위" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+					// System.out.println("위" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
 				} else if (j > 0 && (int) (j % mineNum) != 0 && bt[j - 1].getText() == ""
 						&& buttonColor.equals(bt[j - 1].getBackground().toString())) {
 					j -= 1;
 					bt[j].setBackground(Color.GRAY);
 					tempNum++;
 					exploreMap(j);
-					//System.out.println("왼" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+					// System.out.println("왼" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
 				} else if (j < (buttonNum - mineNum) && bt[j + mineNum].getText() == ""
 						&& buttonColor.equals(bt[j + mineNum].getBackground().toString())) {
 					j += mineNum;
 					bt[j].setBackground(Color.GRAY);
 					tempNum++;
 					exploreMap(j);
-					//System.out.println("아래" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+					// System.out.println("아래" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
 				} else if (j < buttonNum && (int) (j % mineNum) != (mineNum - 1) && bt[j + 1].getText().equals("")
 						&& buttonColor.equals(bt[j + 1].getBackground().toString())) {
 					j += 1;
 					bt[j].setBackground(Color.GRAY);
 					tempNum++;
 					exploreMap(j);
-					//System.out.println("오른" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
-				}else {
+					// System.out.println("오른" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+				} else {
 					if (tempNum != 0) {
 						tempNum -= 1;
 						exploreMap(temp[tempNum]);
-						//System.out.println("전" + j+ " temp " + temp[tempNum]+" tempNum "+tempNum);
+						// System.out.println("전" + j+ " temp " + temp[tempNum]+" tempNum "+tempNum);
 					}
 				}
 			} else if (j == (buttonNum - 1)) {
@@ -136,22 +143,24 @@ public class Game_Screen extends JFrame {
 					bt[j].setBackground(Color.GRAY);
 					tempNum++;
 					exploreMap(j);
-					//System.out.println("99위" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+					// System.out.println("99위" + j+ " temp " + temp[tempNum-1]+" tempNum
+					// "+tempNum);
 				} else if (j > 0 && (int) (j % mineNum) != 0 && bt[j - 1].getText() == ""
 						&& buttonColor.equals(bt[j - 1].getBackground().toString())) {
 					j -= 1;
 					bt[j].setBackground(Color.GRAY);
 					tempNum++;
 					exploreMap(j);
-					//System.out.println("99왼" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
-				}else {
+					// System.out.println("99왼" + j+ " temp " + temp[tempNum-1]+" tempNum
+					// "+tempNum);
+				} else {
 					if (tempNum != 0) {
 						tempNum -= 1;
 						exploreMap(temp[tempNum]);
-						//System.out.println("전" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
+						// System.out.println("전" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
 					}
 				}
-			} 
+			}
 		}
 	}
 
@@ -213,7 +222,7 @@ public class Game_Screen extends JFrame {
 				for (int i = 0; i < mineNum; i++) {
 					System.out.println(randomNums[i]);
 					bt[randomNums[i]].setText("B");
-					bt[randomNums[i]].setForeground(Color.RED); // 폭탄 색깔
+					bt[randomNums[i]].setForeground(Color.LIGHT_GRAY); // 폭탄 색깔
 				}
 			for (int i = 0; i < mineNum * mineNum; i++) {
 				int buttonNum = mineNum * mineNum;
@@ -270,6 +279,7 @@ public class Game_Screen extends JFrame {
 					if (bt[i].getText() == "B")
 						bt[i].setForeground(Color.RED);
 				}
+				
 			} else if (actionBt.getText() == "") {
 				for (i = 0; i < mineNum * mineNum; i++) {
 					if (e.getSource() == bt[i]) {
