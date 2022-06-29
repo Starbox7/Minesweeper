@@ -67,7 +67,76 @@ public class Game_Screen extends JFrame {
 	}
 	
 	private void exploreNum(int n) {
+		int buttonNum = mineNum * mineNum; //buttonNum-1 == 99 (Ex)
 		
+		if(n==0) {
+			if(bt[n+1].getText()!=""&&bt[n+1].getText()!="B") {
+				bt[n+1].setBackground(Color.GRAY);
+				if (bt[n+1].getText().equals("1")) {
+					bt[n+1].setForeground(Color.BLUE);
+				} else if (bt[n+1].getText().equals("2")) {
+					bt[n+1].setForeground(Color.CYAN);
+				} else {
+					bt[n+1].setForeground(Color.GREEN);
+				}
+			}
+			if(bt[n+buttonNum].getText()!=""&&bt[n+buttonNum].getText()!="B") {
+				bt[n+buttonNum].setBackground(Color.GRAY);
+				if (bt[n+buttonNum].getText().equals("1")) {
+					bt[n+buttonNum].setForeground(Color.BLUE);
+				} else if (bt[n+buttonNum].getText().equals("2")) {
+					bt[n+buttonNum].setForeground(Color.CYAN);
+				} else {
+					bt[n+buttonNum].setForeground(Color.GREEN);
+				}
+			}
+			if(bt[n+buttonNum+1].getText()!=""&&bt[n+buttonNum+1].getText()!="B") {
+				bt[n+buttonNum+1].setBackground(Color.GRAY);
+				if (bt[n+buttonNum+1].getText().equals("1")) {
+					bt[n+buttonNum+1].setForeground(Color.BLUE);
+				} else if (bt[n+buttonNum+1].getText().equals("2")) {
+					bt[n+buttonNum+1].setForeground(Color.CYAN);
+				} else {
+					bt[n+buttonNum+1].setForeground(Color.GREEN);
+				}
+			}
+		}
+		else if(n==buttonNum-1) {
+			if(bt[n-1].getText()!=""&&bt[n-1].getText()!="B") {
+				bt[n-1].setBackground(Color.GRAY);
+				if (bt[n-1].getText().equals("1")) {
+					bt[n-1].setForeground(Color.BLUE);
+				} else if (bt[n-1].getText().equals("2")) {
+					bt[n-1].setForeground(Color.CYAN);
+				} else {
+					bt[n-1].setForeground(Color.GREEN);
+				}
+			}
+			if(bt[n-buttonNum].getText()!=""&&bt[n-buttonNum].getText()!="B") {
+				bt[n-buttonNum].setBackground(Color.GRAY);
+				if (bt[n-buttonNum].getText().equals("1")) {
+					bt[n-buttonNum].setForeground(Color.BLUE);
+				} else if (bt[n-buttonNum].getText().equals("2")) {
+					bt[n-buttonNum].setForeground(Color.CYAN);
+				} else {
+					bt[n-buttonNum].setForeground(Color.GREEN);
+				}
+			}
+			if(bt[n-buttonNum-1].getText()!=""&&bt[n-buttonNum-1].getText()!="B") {
+				bt[n-buttonNum-1].setBackground(Color.GRAY);
+				if (bt[n-buttonNum-1].getText().equals("1")) {
+					bt[n-buttonNum-1].setForeground(Color.BLUE);
+				} else if (bt[n-buttonNum-1].getText().equals("2")) {
+					bt[n-buttonNum-1].setForeground(Color.CYAN);
+				} else {
+					bt[n-buttonNum-1].setForeground(Color.GREEN);
+				}
+			}
+		}
+		
+		else {
+			
+		}
 	}
 
 	private void exploreMap(int j) {
