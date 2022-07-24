@@ -149,6 +149,7 @@ public class Game_Screen extends JFrame {
 			if (bt[j + mineNum].getText() == "" && buttonColor.equals(bt[j + mineNum].getBackground().toString())) {
 				j += mineNum;
 				bt[j].setBackground(Color.GRAY);
+				exploreNum(j);
 				tempNum++;
 				exploreMap(j);
 				// System.out.println("0아래 " + j + " temp " + temp[tempNum-1]+" tempNum
@@ -156,6 +157,7 @@ public class Game_Screen extends JFrame {
 			} else if (bt[j + 1].getText() == "" && buttonColor.equals(bt[j + 1].getBackground().toString())) {
 				j += 1;
 				bt[j].setBackground(Color.GRAY);
+				exploreNum(j);
 				tempNum++;
 				exploreMap(j);
 				// System.out.println("0오른" + j+ " temp " + temp[tempNum-1]+" tempNum
@@ -174,6 +176,7 @@ public class Game_Screen extends JFrame {
 						&& buttonColor.equals(bt[j - mineNum].getBackground().toString())) {
 					j -= mineNum;
 					bt[j].setBackground(Color.GRAY);
+					exploreNum(j);
 					tempNum++;
 					exploreMap(j);
 					// System.out.println("위" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
@@ -181,6 +184,7 @@ public class Game_Screen extends JFrame {
 						&& buttonColor.equals(bt[j - 1].getBackground().toString())) {
 					j -= 1;
 					bt[j].setBackground(Color.GRAY);
+					exploreNum(j);
 					tempNum++;
 					exploreMap(j);
 					// System.out.println("왼" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
@@ -188,6 +192,7 @@ public class Game_Screen extends JFrame {
 						&& buttonColor.equals(bt[j + mineNum].getBackground().toString())) {
 					j += mineNum;
 					bt[j].setBackground(Color.GRAY);
+					exploreNum(j);
 					tempNum++;
 					exploreMap(j);
 					// System.out.println("아래" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
@@ -195,6 +200,7 @@ public class Game_Screen extends JFrame {
 						&& buttonColor.equals(bt[j + 1].getBackground().toString())) {
 					j += 1;
 					bt[j].setBackground(Color.GRAY);
+					exploreNum(j);
 					tempNum++;
 					exploreMap(j);
 					// System.out.println("오른" + j+ " temp " + temp[tempNum-1]+" tempNum "+tempNum);
@@ -210,6 +216,7 @@ public class Game_Screen extends JFrame {
 						&& buttonColor.equals(bt[j - mineNum].getBackground().toString())) {
 					j -= mineNum;
 					bt[j].setBackground(Color.GRAY);
+					exploreNum(j);
 					tempNum++;
 					exploreMap(j);
 					// System.out.println("99위" + j+ " temp " + temp[tempNum-1]+" tempNum
@@ -218,6 +225,7 @@ public class Game_Screen extends JFrame {
 						&& buttonColor.equals(bt[j - 1].getBackground().toString())) {
 					j -= 1;
 					bt[j].setBackground(Color.GRAY);
+					exploreNum(j);
 					tempNum++;
 					exploreMap(j);
 					// System.out.println("99왼" + j+ " temp " + temp[tempNum-1]+" tempNum
